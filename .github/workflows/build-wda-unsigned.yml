@@ -48,7 +48,8 @@ jobs:
       - name: Package IPA (unsigned)
         run: |
           cd /tmp/wda-derived/Build/Products/Release-iphoneos
-          APP=$(find . -name '*.app' -maxdepth 1 | head -n1)
+          APP=WebDriverAgentRunner-Runner.app
+test -d "$APP" || { echo "Expected WDA runner app not found"; exit 1; }
           APP=$(basename "$APP")
           # iOS17+ 必须删 Frameworks 里 XC 开头文件，否则重签后 xctest 起不来
           if [ -d "$APP/Frameworks" ]; then
